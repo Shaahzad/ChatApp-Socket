@@ -1,12 +1,14 @@
 import { Avatar, IconButton, ListItem, ListItemText, Stack, Typography } from '@mui/material'
 import React, { memo } from 'react'
 import AddIcon from '@mui/icons-material/Add';
-
-const UserItem = ({user, handler, handlerIsloading}) => {
+import RemoveIcon from '@mui/icons-material/Remove';
+const UserItem = ({user, handler, handlerIsloading, isAdded=false}) => {
     const {name, _id, avatar} = user
   return (
-    <ListItem>
-    <Stack direction={'row'} alignItems={'center'} spacing={'1rem'} width={'100%'}>
+    <ListItem > 
+    <Stack 
+   
+    direction={'row'} alignItems={'center'} spacing={'1rem'} width={'100%'}>
         <Avatar/>
         <Typography variant='body1'
         sx={{
@@ -15,21 +17,27 @@ const UserItem = ({user, handler, handlerIsloading}) => {
             WebkitLineClamp: 1,
             WebkitBoxOrient: 'vertical',
             overflow: 'hidden',
-            textOverflow: 'ellipsis'
+            textOverflow: 'ellipsis',
+            // bgcolor: 'red',
+            width: '100%'
         }}
         >{name}</Typography>
         <IconButton
         size='small'
         sx={{
-            bgcolor: 'primary.main',
+            bgcolor: isAdded ? 'error.main' : 'primary.main',
             color: 'white',
             "&:hover":{
-                bgcolor: 'primary.dark'
+                bgcolor: isAdded ? 'error.dark' : 'primary.main',
             }
         }}
         onClick={()=> handler(_id)} disabled={handlerIsloading}>
-            <AddIcon/>
-        </IconButton>
+  
+      {
+        isAdded ? <RemoveIcon/> : <AddIcon/>
+      }
+ 
+ </IconButton>
     </Stack>
   </ListItem>
 )
