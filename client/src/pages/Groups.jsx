@@ -1,18 +1,20 @@
 import React, { Suspense, memo, useEffect, useState } from 'react'
 import { Backdrop, Box, Button, Drawer, Grid, Icon, IconButton, Stack, TextField, Tooltip, Typography } from '@mui/material'
-import { matBlack, orange } from '../Constants/Color' 
+import { bgGradient, matBlack, orange } from '../Constants/Color' 
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import MenuIcon from "@mui/icons-material/Menu";
-import {AvatarCard, Link} from '../components/styled/Styledcomponent'
-import {SampleChats} from '../Constants/Sampledata'
+import { Link} from '../components/styled/Styledcomponent'
+import {SampleChats, Sampleuser} from '../Constants/Sampledata'
 import EditIcon from '@mui/icons-material/Edit';
 import DoneIcon from '@mui/icons-material/Done';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
+import UserItem from '../components/Shared/UserItem';
+import AvatarCard from '../components/Shared/AvatarCard'
 const ConfirmDeleteDialog = React.lazy(() => import('../components/Dialog/ConfirmDeleteDialog'))
 const AddMemberDialog = React.lazy(() => import('../components/Dialog/AddMemberDialog'))
-const isAddMember = true
+const isAddMember = false
 const Groups = () => {
   const [ismobilemenuopen, setismobilemenuopen] = useState(false)
   const [isEdit, setisEdit] = useState(false)
@@ -23,6 +25,9 @@ const Groups = () => {
   const chatId = useSearchParams()[0].get('group')
   // console.log(chatId)
 
+  const RemoveMemberHandler = (id) => {
+   console.log(id)
+  }
   const CloseconfirmDeleteHandler = () => {
     setConfirmDelete(false)
   }
@@ -54,9 +59,10 @@ const DeleteHanler = () => {
 }
 
 useEffect(() => {
+ if(chatId){
   setGroupName(`Group Name ${chatId}`)
   setGroupNameupdatedvalue(`Group Name ${chatId}`)
-
+ }
   return () => {
     setGroupName('')
     setGroupNameupdatedvalue('')
@@ -148,10 +154,10 @@ sx={{
   display:{
     xs: 'none',
     sm: 'block'
-  }
+  },
 }}
 sm={4}
-bgcolor={orange}
+// bgcolor={orange}
 >
 <GroupsList myGroups={SampleChats} chatId={chatId}/>
 </Grid>
@@ -190,11 +196,22 @@ sx={{
     md: '1rem 4rem'
   }}
   spacing={'2rem'}
-  bgcolor={'bisque'}
+  // bgcolor={'bisque'}
   height={'50vh'}
   overflow={'auto'}
   >
-{/*       members */}
+{/*members*/}
+{
+  Sampleuser.map((i)=>(
+    <UserItem key={i._id} user={i} isAdded styling={{
+      boxShadow: '0 0 0.5rem rgba(0,0,0,0.2)',
+      padding: '1rem 2rem',
+      borderRadius: '1rem'
+    }}
+    handler={RemoveMemberHandler}
+      />
+  ))
+}
   </Stack>
   {
     ButtonGroup
@@ -231,7 +248,10 @@ open={ismobilemenuopen} onClose={HandleMobileClose}>
 
 
 const GroupsList = ({w='100%', myGroups=[], chatId}) => (
-<Stack width={w}>
+<Stack width={w} sx={{
+    backgroundImage: bgGradient,
+    height: '100vh',
+}}>
   {
     myGroups.length > 0 ? (
       myGroups.map((group) => (

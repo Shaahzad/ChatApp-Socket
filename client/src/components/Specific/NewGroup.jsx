@@ -11,7 +11,7 @@ const NewGroup = () => {
   const selectmemberHandler = (id) => {
     setSelectmember((prev) => prev.includes(id) ? prev.filter((member) => member !== id) : [...prev, id])
   }
-  console.log(selectmember)
+  // console.log(selectmember)
   const SubmitHandler = () => {
     
   }

@@ -1,6 +1,7 @@
 import { Stack } from '@mui/material'
 import React from 'react'
 import Chatitem from '../Shared/Chatitem'
+import { bgGradient } from '../../Constants/Color'
 
 const Chatlist = ({ w = '100%', chats = [], chatId, onlineUsers = [], newmessageAlert = [{
     chatId: '',
@@ -9,7 +10,7 @@ const Chatlist = ({ w = '100%', chats = [], chatId, onlineUsers = [], newmessage
 handleDeleteChat
 }) => {
     return (
-        <Stack width={w} direction={'column'}>
+        <Stack width={w} direction={'column'} overflow={'auto'} height={'100vh'}>
             {
                 chats.map((data, index) => {
                     const { avatar, _id, name, groupChat, members } = data
