@@ -65,7 +65,7 @@ export const SampleMessage = [
         attachments: [
            {
                public_id: '2',
-               url: 'https://www.w3school.com/howto/img_avatar.png'
+               url: 'https://img.freepik.com/free-vector/smiling-young-man-illustration_1308-173524.jpg?ga=GA1.1.1272054986.1732180061&semt=ais_hybrid'
            },
         ],
         content: 'hello 2',

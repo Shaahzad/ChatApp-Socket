@@ -34,3 +34,11 @@ export const InputBox = styled('input')`
     border-radius: 1.5rem;
     background-color: ${graycolor};
 `
+
+export const AvatarCard = styled('div')`
+width: 5rem;
+height: 3rem;
+position: relative;
+display: flex;
+align-items: center;
+`
