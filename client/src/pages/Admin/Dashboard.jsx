@@ -61,7 +61,7 @@ const Dashboard = () => {
           xs: 'column',
           lg: 'row',
          }}
-          flexWrap={'wrap'}
+          // flexWrap={'wrap'}
           justifyContent={'center'}
           alignItems={{
             xs: 'center',
