@@ -24,7 +24,10 @@ const connectDb = (uri) => {
     .json({success: true, message})
  }
 
+ const EmitEvent = (req,event,users,data) => {
+  console.log('Emitting Event', event)
+ }
 export {
-    connectDb, sendToken
+    connectDb, sendToken, cookieoption, EmitEvent
 } 
     

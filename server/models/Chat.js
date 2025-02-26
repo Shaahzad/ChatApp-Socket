@@ -1,7 +1,6 @@
-import { Mongoose } from "mongoose";
+import mongoose from "mongoose"
 
-
-const ChatSchema = new Mongoose.Schema({
+const ChatSchema = new mongoose.Schema({
     name:{
         type: String,
         required: true
@@ -11,12 +10,12 @@ const ChatSchema = new Mongoose.Schema({
         default: false
     },
     creator: {
-       type: Mongoose.Schema.Types.ObjectId,
+       type: mongoose.Schema.Types.ObjectId,
        ref: 'User',
     },
     members: [
         {
-            type: Mongoose.Schema.Types.ObjectId,
+            type: mongoose.Schema.Types.ObjectId,
             ref: 'User',
         }
     ]
@@ -27,4 +26,4 @@ const ChatSchema = new Mongoose.Schema({
 )
 
 
-export default Mongoose.model('Chat', ChatSchema)
+export default mongoose.model('Chat', ChatSchema)
