@@ -27,7 +27,12 @@ const connectDb = (uri) => {
  const EmitEvent = (req,event,users,data) => {
   console.log('Emitting Event', event)
  }
+
+
+ const deleteFilesFromCloudinary = async(public_ids) => {
+
+ }
 export {
-    connectDb, sendToken, cookieoption, EmitEvent
+    connectDb, sendToken, cookieoption, EmitEvent, deleteFilesFromCloudinary
 } 
     

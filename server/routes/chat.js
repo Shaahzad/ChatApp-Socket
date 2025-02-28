@@ -1,6 +1,6 @@
 import express from 'express'
 import { isAuthenticated } from '../middlewares/Auth.js'
-import { addMembers, getMyChats, getMyGroups, leaveGroup, newGroupChat, removeMembers, sendAttachments } from '../controllers/chat.js'
+import { addMembers, deleteChat, getChatDetails, getMessage, getMyChats, getMyGroups, leaveGroup, newGroupChat, removeMembers, renameGroup, sendAttachments } from '../controllers/chat.js'
 import { attachmentsMulter } from '../middlewares/multer.js'
 
 
@@ -18,4 +18,9 @@ router.delete('/leave/:id', leaveGroup)
 
 // attachments
 router.post('/message',  attachmentsMulter, sendAttachments)
+
+// Get Message
+router.get("/message/:id", getMessage)
+// Get Chat Details, rename, Delete
+router.route("/:id").get(getChatDetails).put(renameGroup).delete(deleteChat)
 export default router

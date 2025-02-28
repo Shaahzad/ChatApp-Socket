@@ -1,7 +1,8 @@
-import { Mongoose } from "mongoose";
+import mongoose from "mongoose"
 
 
-const MessageSchema = new Mongoose.Schema({
+
+const MessageSchema = new mongoose.Schema({
     content: String,
     attachments: [
         {
@@ -16,12 +17,12 @@ const MessageSchema = new Mongoose.Schema({
         }
     ],
     sender:{
-        type: Mongoose.Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: true
     },
     chat: {
-        type: Mongoose.Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'Chat',
         required: true
     }
@@ -32,4 +33,4 @@ const MessageSchema = new Mongoose.Schema({
 )
 
 
-export default Mongoose.model('Message', MessageSchema)
+export default mongoose.model('Message', MessageSchema)
