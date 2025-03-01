@@ -58,10 +58,16 @@ const logout = TryCatch(async (req, res) => {
 
 const searchUser = TryCatch(async (req, res) => {
     const {name} = req.query;
+
+    const myChats = await Chat.find({groupChat: false, members: req.user})
+    // All Users from my chats means friends or people I have chatted with
+    const allUserFromMyChats  = myChats.flatMap((chat)=> chat.members)
+
+    const allUsersExceptMeAndFriends = 
     return res.status(200).json({
         success: true,
-        message: name
-    })
+        allUserFromMyChats
+})
 })
 export {
     login,
