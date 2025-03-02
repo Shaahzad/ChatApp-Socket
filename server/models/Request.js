@@ -1,19 +1,19 @@
-import { Mongoose } from "mongoose";
+import mongoose from "mongoose"
 
 
-const requestSchema = new Mongoose.Schema({
+const requestSchema = new mongoose.Schema({
     status:{
         type: String,
         default: 'pending',
         enum: ['pending', 'accepted', 'rejected']
     },
     sender:{
-        type: Mongoose.Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: true
     },
     receiver: {
-        type: Mongoose.Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: true
     }
@@ -23,4 +23,4 @@ const requestSchema = new Mongoose.Schema({
 }
 )
 
-export default Mongoose.model('Request', requestSchema)
+export default mongoose.model('Request', requestSchema)

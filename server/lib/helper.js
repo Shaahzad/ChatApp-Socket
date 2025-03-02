@@ -1,4 +1,6 @@
 
 
 
-export const getOtherMember = (members, currentUserId) => members.find((member) => member._id.toString() !== currentUserId.toString())
+export const getOtherMember = (members, currentUserId) => {
+    return  members.find((member) => member._id.toString() !== currentUserId.toString())
+}
