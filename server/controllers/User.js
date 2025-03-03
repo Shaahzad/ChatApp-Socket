@@ -7,10 +7,15 @@ import Chat from '../models/Chat.js'
 import Request from "../models/Request.js"
 import { NEW_REQUEST, REFETCH_CHATS } from "../constants/events.js"
 import {getOtherMember} from "../lib/helper.js"
+
 //  create a new user and save it to the database and save in the cookie
-const newUser = async (req, res) => {
+const newUser = TryCatch(async (req, res) => {
 
     const { name, username, password, bio } = req.body
+    const file = req.file
+
+   if(!file) return next(new ErrorHandler("Please Upload avatar", 400))
+
 
     const hashPassword = await bcrypt.hash(password, 10)
     const avatar = {
@@ -28,7 +33,8 @@ const newUser = async (req, res) => {
 
     sendToken(res, user, 201, 'User Created Successfully')
 
-}
+})
+
 const login = TryCatch(async (req, res, next) => {
     const { username, password } = req.body
 
@@ -62,7 +68,6 @@ const logout = TryCatch(async (req, res) => {
 
 const searchUser = TryCatch(async (req, res) => {
     const { name = "" } = req.query;
-    // console.log(req.query.name)
     // finding all my chats
     const myChats = await Chat.find({ groupChat: false, members: req.user })
     // // Extracting All Users from my chats means friends or people I have chatted with
@@ -71,15 +76,15 @@ const searchUser = TryCatch(async (req, res) => {
     // // finding all users except me and my friends
     const allUsersExceptMeAndFriends = await User.find({
         _id: { $nin: allUserFromMyChats },
-        // name: { $regex: name, $options: 'i' }
+        name: { $regex: name, $options: 'i' }
     })
 
     // // // modifying the response
-    // const users = allUsersExceptMeAndFriends.map(({_id, name, avatar})=>({
-    //     _id, 
-    //     name, 
-    //     avatar: avatar.url
-    // }))
+    const users = allUsersExceptMeAndFriends.map(({_id, name, avatar})=>({
+        _id, 
+        name, 
+        avatar: avatar.url
+    }))
 
     return res.status(200).json({
         success: true,

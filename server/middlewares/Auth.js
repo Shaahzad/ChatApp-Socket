@@ -12,7 +12,20 @@ req.user = decodedData.id
 next()
 }
 
+const Adminonly = async (req, res, next) => {
+    const token = req.cookies['Admin']
+    
+    
+    if(!token) return next(new ErrorHandler("only admin can access", 401))
+    const adminId = jwt.verify(token, process.env.JWT_SECRET)
+    if(adminId !== process.env.ADMIN_SECRET_KEY) return next(new ErrorHandler("only admin can access", 401))
+
+    
+    next()
+    }
+    
 
 export {
-    isAuthenticated
+    isAuthenticated,
+    Adminonly
 }

@@ -22,5 +22,5 @@ app.use('/admin', AdminRoute)
 
 app.use(errorMiddleware)
 app.listen(port, () => {
-    console.log(`Server is running on ${port}`)       
+    console.log(`Server is running on ${port} in ${process.env.NODE_ENV.trim()} mode`)       
 })
